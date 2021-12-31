@@ -9,7 +9,9 @@ print(Fore.RESET)
 print('First of all you need to login on our server to buy something!\n')
 
 # Classes
-class Acc:
+
+
+class Acc(object):
 
     def __init__(self, id, name, email, password):
         self.__id = randint(0, 9999999999)
@@ -25,15 +27,8 @@ class Acc:
     def id(self):
         return self.__id
 
-    def pass_check(self):
-        if len(password1) >= 10:
-            return True
-        else:
-            print(Fore.YELLOW + f'Please, you must have a +10 letters pass to continue.')
-            print(Fore.RESET)
-            return accregister()
 
-class Books:
+class Books(object):
 
     def __init__(self, title, values, pages):
         self.title = title
@@ -44,7 +39,7 @@ class Books:
         return self.title
 
     def totalvalue(self, *arg):
-        return 
+        return
 
 
 book1 = Books("Diary of a Wimpy Kid: Rodrick Rules", 13.88, 170)
@@ -53,18 +48,32 @@ book3 = Books("Diary of a Wimpy Kid: The Ugly Truth", 17.90, 170)
 book4 = Books("Captain Underpants and the Sensational Saga of Sir Stinks-A-Lot (Captain Underpants #12)", 32.56, 35)
 book5 = Books("Zac Power: Poison Island", 5.99, 138)
 
+name1: str = str()
+email1: str = str()
+password1: str = str()
+
+
 # User account infos
 def accregister():
     global name1, email1, password1
     name1 = input('username: ')
-    email1 = input('e-mail: ')    
+    email1 = input('e-mail: ')
     password1 = input('password (+10 letters): ')
+
+
+def pass_check():
+    if len(password1) >= 10:
+        return True
+    else:
+        print(Fore.YELLOW + f'Please, you must have a +10 letters pass to continue.')
+        print(Fore.RESET)
+        return accregister()
 
 
 try:
     accregister()
-    userinfos = Acc(id, name1, email1, password1)
-    userinfos.pass_check()
+    userinfos: Acc = Acc(id, name1, email1, password1)
+    pass_check()
 
 except (ValueError, AttributeError) as err:
     print(f"Something's wrongs: {err}")
@@ -76,12 +85,12 @@ print(f'Have a good shop on EBM Market!')
 print(Fore.RESET)
 
 # Shopping
-cart = list()
-books = [book1, book2, book3, book4, book5]
-cartmode = 1
-tocart = 0
-        
-    
+cart: list = list()
+books: list = [book1, book2, book3, book4, book5]
+cartmode: int = 1
+tocart: int = 0
+
+
 def shopping():
     global cartmode, tocart
     for y in books:
@@ -91,12 +100,12 @@ def shopping():
     while True:
         try:
             tocart = int(input("\n"))
-        except (ValueError) as erra:
+        except ValueError as erra:
             print(f"Something's wrong in 'shopping' section: {erra}")
-        
+
         # client options
         if tocart == 9:
-            cartmode = False 
+            cartmode = False
         elif tocart == 0 or tocart <= 4:
             cart.append(books[tocart])
             print(f"Book added! {books[tocart].title}")
@@ -104,27 +113,28 @@ def shopping():
             print("\nThis is your actual cart:\n")
             for x in cart:
                 print(f"- {x.title} / Pages: {x.pages} / ${x.values}")
-            yn = input(Fore. YELLOW + "Do you still wanna buy something? y/n\n")
-            if yn == "y": pass
+            yn = input(Fore.YELLOW + "Do you still wanna buy something? y/n\n")
+            if yn == "y":
+                pass
             elif yn == "n":
                 break
-            else: pass
-        else: pass
-
-shopping()
-print(Fore.RESET)
+            else:
+                pass
+        else:
+            return
 
 
 # Logging out
-
-
-def loggout():
+def loggout() -> None:
+    print(Fore.RESET)
     print('This is your cart:')
     total = 0
     for z in cart:
         print(f"- {z.title} / Pages: {z.pages} / ${z.values}")
         total = total + z.values
-    print(f"\nTotal: ${total} USD")
+    return print(f"\nTotal: ${total} USD")
 
 
-loggout()
+if __name__ == "__main__":
+    shopping()
+    loggout()
