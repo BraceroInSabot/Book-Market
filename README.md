@@ -1,4 +1,4 @@
-# EBMM_Book_Maarket_log_n_buy
+# Book Market
 
 First, let’s start with Classes section, where the user register sys., known as Acc, and then we have Books, as the merchandise in market, followed by the own books registered (book1, book2, book3, book4, book5 and book6).
 
